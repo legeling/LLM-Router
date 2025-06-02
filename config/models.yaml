@@ -1,0 +1,102 @@
+# 大模型网关配置文件
+models:
+  # OpenAI标准格式服务
+  openai:
+    - name: "gpt-3.5-turbo"
+      type: "openai"
+      base_url: "https://api.openai.com/v1"
+      api_key: "your-openai-api-key"
+      max_tokens: 4096
+      enabled: true
+      
+    - name: "gpt-4"
+      type: "openai"
+      base_url: "https://api.openai.com/v1"
+      api_key: "your-openai-api-key"
+      max_tokens: 8192
+      enabled: true
+
+  # 其他OpenAI兼容服务 - 支持同一个服务部署多个模型
+  compatible:
+    - name: "qwen-turbo"
+      type: "openai"
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      api_key: "your-dashscope-api-key"
+      model_name: "qwen-turbo"
+      max_tokens: 8192
+      enabled: true
+      
+    - name: "qwen-plus"
+      type: "openai"
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      api_key: "your-dashscope-api-key"
+      model_name: "qwen-plus"
+      max_tokens: 8192
+      enabled: true
+      
+    - name: "qwen-max"
+      type: "openai"
+      base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      api_key: "your-dashscope-api-key"
+      model_name: "qwen-max"
+      max_tokens: 8192
+      enabled: true
+
+  # 本地部署的多个模型(同一个服务地址)
+  local_models:
+    - name: "llama2-7b"
+      type: "openai"
+      base_url: "http://localhost:8080/v1"
+      api_key: "local-api-key"
+      model_name: "llama2-7b-chat"
+      max_tokens: 4096
+      enabled: true
+      
+    - name: "llama2-13b"
+      type: "openai"
+      base_url: "http://localhost:8080/v1"
+      api_key: "local-api-key"
+      model_name: "llama2-13b-chat"
+      max_tokens: 4096
+      enabled: true
+      
+    - name: "mistral-7b"
+      type: "openai"
+      base_url: "http://localhost:8080/v1"
+      api_key: "local-api-key"
+      model_name: "mistral-7b-instruct"
+      max_tokens: 4096
+      enabled: true
+
+  # Request服务(支持直接配置token或用户名密码认证)
+  request:
+    - name: "claude-3"
+      type: "request"
+      base_url: "https://api.anthropic.com"
+      token: "your-fixed-token-here"  # 直接配置写死的token
+      model_name: "claude-3-sonnet"
+      max_tokens: 4096
+      enabled: true
+      
+    - name: "custom-model"
+      type: "request"
+      base_url: "https://custom-api.com"
+      auth_url: "https://custom-api.com/auth"  # 如果需要用户名密码认证
+      username: "your-username"
+      password: "your-password"
+      model_name: "custom-model-v1"
+      max_tokens: 4096
+      enabled: true
+      token_cache_hours: 8
+
+# 服务配置
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  
+# API密钥配置(当前写死)
+auth:
+  api_keys:
+    - "llm-gateway-key-001"
+    - "llm-gateway-key-002" 
