@@ -1,0 +1,116 @@
+{
+  "models": [
+    {
+      "id": "openai-gpt-4",
+      "name": "OpenAI GPT-4",
+      "provider": "openai",
+      "type": "openai_compatible",
+      "config": {
+        "base_url": "https://api.openai.com/v1",
+        "api_key": "sk-your-openai-api-key-here",
+        "model": "gpt-4"
+      },
+      "enabled": true,
+      "max_tokens": 8192,
+      "support_stream": true,
+      "description": "OpenAI's most capable model, great for complex tasks",
+      "cost_per_1k_tokens": {
+        "input": 0.03,
+        "output": 0.06
+      }
+    },
+    {
+      "id": "openai-gpt-3.5-turbo",
+      "name": "OpenAI GPT-3.5 Turbo",
+      "provider": "openai",
+      "type": "openai_compatible",
+      "config": {
+        "base_url": "https://api.openai.com/v1",
+        "api_key": "sk-your-openai-api-key-here",
+        "model": "gpt-3.5-turbo"
+      },
+      "enabled": true,
+      "max_tokens": 4096,
+      "support_stream": true,
+      "description": "Fast and cost-effective model for most tasks",
+      "cost_per_1k_tokens": {
+        "input": 0.0015,
+        "output": 0.002
+      }
+    },
+    {
+      "id": "deepseek-chat",
+      "name": "DeepSeek Chat",
+      "provider": "deepseek",
+      "type": "openai_compatible",
+      "config": {
+        "base_url": "https://api.deepseek.com",
+        "api_key": "sk-your-deepseek-api-key-here",
+        "model": "deepseek-chat"
+      },
+      "enabled": true,
+      "max_tokens": 4096,
+      "support_stream": true,
+      "description": "Cost-effective Chinese LLM with strong capabilities",
+      "cost_per_1k_tokens": {
+        "input": 0.001,
+        "output": 0.002
+      }
+    },
+    {
+      "id": "anthropic-claude-3",
+      "name": "Anthropic Claude 3",
+      "provider": "anthropic",
+      "type": "anthropic",
+      "config": {
+        "base_url": "https://api.anthropic.com",
+        "api_key": "sk-ant-your-anthropic-key-here",
+        "model": "claude-3-opus-20240229"
+      },
+      "enabled": false,
+      "max_tokens": 4096,
+      "support_stream": true,
+      "description": "Anthropic's most capable model",
+      "cost_per_1k_tokens": {
+        "input": 0.015,
+        "output": 0.075
+      }
+    },
+    {
+      "id": "local-llama",
+      "name": "Local Llama Model",
+      "provider": "ollama",
+      "type": "openai_compatible",
+      "config": {
+        "base_url": "http://localhost:11434/v1",
+        "api_key": "not-required",
+        "model": "llama2"
+      },
+      "enabled": false,
+      "max_tokens": 2048,
+      "support_stream": true,
+      "description": "Self-hosted Llama model via Ollama",
+      "cost_per_1k_tokens": {
+        "input": 0.0,
+        "output": 0.0
+      }
+    }
+  ],
+  "routing": {
+    "default_model": "openai-gpt-3.5-turbo",
+    "fallback_models": ["deepseek-chat", "openai-gpt-4"],
+    "strategy": "cost_optimized"
+  },
+  "rate_limits": {
+    "global": {
+      "requests_per_minute": 100,
+      "tokens_per_minute": 100000
+    },
+    "per_model": {
+      "openai-gpt-4": {
+        "requests_per_minute": 20,
+        "tokens_per_minute": 40000
+      }
+    }
+  }
+}
